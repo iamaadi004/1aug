@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Ankita 💌</title>
+<meta name="theme-color" content="#f6d9e2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush: #ffe6ec;
+    --blush-deep: #ffc7d6;
+    --rose: #e8879e;
+    --rose-deep: #c96b86;
+    --lilac: #d8c3ee;
+    --lilac-deep: #b79bdb;
+    --gold: #e7c789;
+    --gold-deep: #cda45a;
+    --plum: #5b3a4a;
+    --white: #fffaf9;
+    --bg-1: #fff4f1;
+    --bg-2: #f7ebf8;
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    font-family: var(--font-body);
+    color: var(--plum);
+    position: relative;
+  }
+
+  button{ font-family: inherit; }
+  button:focus-visible, .replay-btn:focus-visible{
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 4px;
+  }
+
+  /* ---------- ambient background ---------- */
+  .bg-ambient{
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .bg-ambient .blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: .55;
+  }
+  .blob-a{ width: 46vw; height: 46vw; max-width: 520px; max-height: 520px; top: -12%; left: -10%; background: radial-gradient(circle, var(--blush-deep), transparent 70%); animation: driftA 16s ease-in-out infinite; }
+  .blob-b{ width: 40vw; height: 40vw; max-width: 460px; max-height: 460px; bottom: -14%; right: -8%; background: radial-gradient(circle, var(--lilac), transparent 70%); animation: driftB 18s ease-in-out infinite; }
+  .blob-c{ width: 30vw; height: 30vw; max-width: 340px; max-height: 340px; bottom: 8%; left: 6%; background: radial-gradient(circle, var(--gold), transparent 72%); opacity: .35; animation: driftC 20s ease-in-out infinite; }
+
+  @keyframes driftA{ 0%,100%{ transform: translate(0,0); } 50%{ transform: translate(4%, 5%); } }
+  @keyframes driftB{ 0%,100%{ transform: translate(0,0); } 50%{ transform: translate(-5%, -4%); } }
+  @keyframes driftC{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(3%, -3%) scale(1.08); } }
+
+  /* ---------- scene shared ---------- */
+  .scene{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* ---------- hero scene ---------- */
+  .hero-scene{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6vh 6vw;
+    gap: clamp(.6rem, 2vh, 1.1rem);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .hero-scene.is-leaving{ opacity: 0; transform: scale(.94) translateY(-14px); }
+  .hero-scene.is-hidden{ display: none; }
+
+  .eyebrow{
+    font-size: .74rem;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--rose-deep);
+    opacity: .85;
+    margin: 0;
+  }
+
+  .cloud-stage{
+    position: relative;
+    width: min(86vw, 560px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .4rem 0;
+  }
+  .cloud-stage::before{
+    content: '';
+    position: absolute;
+    inset: -18%;
+    background: radial-gradient(circle, rgba(255,214,224,.55), rgba(216,192,238,.28) 45%, transparent 72%);
+    filter: blur(34px);
+    z-index: -1;
+    animation: haloPulse 6s ease-in-out infinite;
+  }
+  @keyframes haloPulse{ 0%,100%{ opacity: .7; transform: scale(1); } 50%{ opacity: 1; transform: scale(1.06); } }
+
+  .cloud-wrap{
+    width: 100%;
+    transition: transform .65s cubic-bezier(.34,1.56,.64,1);
+    will-change: transform;
+  }
+  .cloud-float{ animation: cloudBob 5s ease-in-out infinite; }
+  @keyframes cloudBob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-9px); } }
+
+  .cloud-pulse{ transform: scale(1); }
+  .cloud-pulse.pulse{ animation: cloudPulseKf .5s ease; }
+  @keyframes cloudPulseKf{ 0%{ transform: scale(1); } 40%{ transform: scale(1.06); } 100%{ transform: scale(1); } }
+
+  .cloud-svg{ width: 100%; height: auto; display: block; }
+
+  .cloud-shadow{
+    position: absolute;
+    bottom: -2%;
+    left: 50%;
+    width: 56%;
+    height: 22px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(91,58,74,.20), transparent 72%);
+    filter: blur(6px);
+  }
+
+  .cloud-question{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    width: 68%;
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 4.2vw, 1.55rem);
+    color: var(--plum);
+    line-height: 1.35;
+    margin: 0;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity .22s ease, transform .22s ease;
+  }
+  .cloud-question.is-swapping{ opacity: 0; transform: translate(-50%, -62%); }
+
+  .lead-line{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1rem, 3vw, 1.28rem);
+    color: var(--rose-deep);
+    margin: .2rem 0 0;
+  }
+
+  .yes-btn{
+    margin-top: .6rem;
+    padding: .95rem 2.15rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    color: var(--rose-deep);
+    background: linear-gradient(135deg, rgba(255,255,255,.6), rgba(255,214,224,.5));
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 999px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 26px rgba(232,135,158,.28), inset 0 1px 0 rgba(255,255,255,.6);
+    cursor: pointer;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .yes-btn:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 32px rgba(232,135,158,.36), inset 0 1px 0 rgba(255,255,255,.6); }
+  .yes-btn:active{ transform: translateY(0) scale(.97); }
+  .yes-btn.bounce{ animation: btnBounce .45s ease; }
+  @keyframes btnBounce{ 0%{ transform: scale(1); } 30%{ transform: scale(1.08); } 60%{ transform: scale(.96); } 100%{ transform: scale(1); } }
+
+  .progress{ display: flex; gap: .42rem; margin-top: 1rem; }
+  .progress-dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(91,58,74,.18);
+    transition: background .4s ease, transform .4s ease, box-shadow .4s ease;
+  }
+  .progress-dot.is-filled{
+    background: linear-gradient(135deg, var(--gold), var(--rose));
+    transform: scale(1.35);
+    box-shadow: 0 0 8px rgba(231,199,137,.7);
+  }
+
+  .hint{
+    font-size: .82rem;
+    color: var(--plum);
+    opacity: .55;
+    margin: .3rem 0 0;
+    font-weight: 500;
+  }
+
+  /* ---------- reveal scene ---------- */
+  .reveal-scene{
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .9s ease;
+    overflow: hidden;
+  }
+  .reveal-scene.is-active{ opacity: 1; pointer-events: auto; }
+
+  .reveal-bg{
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 28% 22%, var(--blush-deep), transparent 55%),
+      radial-gradient(circle at 76% 28%, var(--lilac), transparent 52%),
+      radial-gradient(circle at 50% 84%, var(--gold), transparent 58%),
+      linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    background-size: 220% 220%;
+    animation: gradientDrift 15s ease-in-out infinite;
+  }
+  @keyframes gradientDrift{ 0%,100%{ background-position: 0% 0%; } 50%{ background-position: 100% 100%; } }
+
+  .rings{ position: absolute; inset: 0; pointer-events: none; }
+  .ring{
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 140px; height: 140px;
+    margin: -70px 0 0 -70px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(231,199,137,.55);
+    box-shadow: 0 0 34px rgba(231,199,137,.22), inset 0 0 22px rgba(255,255,255,.16);
+    animation: ringPulse 3.6s ease-out infinite;
+    opacity: 0;
+  }
+  .ring.r2{ animation-delay: 1.1s; border-color: rgba(216,192,238,.55); }
+  .ring.r3{ animation-delay: 2.2s; border-color: rgba(232,135,158,.5); }
+  @keyframes ringPulse{ 0%{ transform: scale(.3); opacity: 0; } 14%{ opacity: .9; } 100%{ transform: scale(3.4); opacity: 0; } }
+
+  .hearts-field, .sparkles{ position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .heart{
+    position: absolute;
+    bottom: -12%;
+    opacity: 0;
+    line-height: 1;
+    animation: floatHeart var(--dur, 7s) ease-in var(--delay, 0s) infinite;
+    filter: drop-shadow(0 4px 10px rgba(180,60,90,.22));
+  }
+  @keyframes floatHeart{
+    0%{ transform: translateY(0) translateX(0) scale(.8); opacity: 0; }
+    12%{ opacity: 1; }
+    82%{ opacity: .85; }
+    100%{ transform: translateY(-118vh) translateX(var(--dx, 0)) scale(1.05); opacity: 0; }
+  }
+  .sparkle{
+    position: absolute;
+    opacity: 0;
+    animation: twinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity: 0; transform: scale(.5) rotate(0deg); }
+    50%{ opacity: 1; transform: scale(1.15) rotate(18deg); }
+  }
+
+  .reveal-content{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 6vh 7vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .55rem;
+    opacity: 0;
+    transform: translateY(18px) scale(.97);
+    transition: opacity 1s ease .25s, transform 1s cubic-bezier(.2,.8,.3,1) .25s;
+  }
+  .reveal-scene.is-active .reveal-content{ opacity: 1; transform: translateY(0) scale(1); }
+
+  .reveal-eyebrow{
+    font-size: .78rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--rose-deep);
+    margin: 0 0 .3rem;
+  }
+  .reveal-headline{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 8.4vw, 4.3rem);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--plum);
+    text-shadow: 0 0 30px rgba(231,199,137,.5), 0 0 60px rgba(232,135,158,.3);
+    animation: glowPulse 3.5s ease-in-out infinite;
+  }
+  @keyframes glowPulse{
+    0%,100%{ text-shadow: 0 0 30px rgba(231,199,137,.5), 0 0 60px rgba(232,135,158,.3); }
+    50%{ text-shadow: 0 0 42px rgba(231,199,137,.7), 0 0 78px rgba(232,135,158,.45); }
+  }
+  .name-highlight{ color: var(--rose-deep); }
+
+  .reveal-sub{
+    font-size: clamp(.98rem, 2.6vw, 1.18rem);
+    max-width: 34rem;
+    line-height: 1.6;
+    color: var(--plum);
+    opacity: .92;
+    margin: .3rem 0 0;
+  }
+  .reveal-sub-2{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(.95rem, 2.4vw, 1.1rem);
+    color: var(--rose-deep);
+    margin: 0;
+  }
+
+  .replay-btn{
+    margin-top: 1.4rem;
+    padding: .8rem 1.9rem;
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--rose), var(--gold-deep));
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(201,107,134,.38);
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
+  }
+  .replay-btn:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 30px rgba(201,107,134,.45); }
+  .replay-btn:active{ transform: translateY(0) scale(.96); }
+
+  /* ---------- reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce){
+    .cloud-wrap{ transition: none; }
+    .cloud-float, .cloud-pulse.pulse, .yes-btn.bounce, .bg-ambient .blob, .cloud-stage::before{
+      animation: none;
+    }
+    .heart, .sparkle{ animation: none; opacity: .85; }
+    .ring{ animation: none; opacity: .35; }
+    .reveal-bg{ animation: none; }
+    .reveal-headline{ animation: none; }
+    .hero-scene, .reveal-scene, .reveal-content, .cloud-question{
+      transition-duration: .15s;
+    }
+  }
+
+  /* ---------- small screens ---------- */
+  @media (max-width: 380px){
+    .cloud-question{ width: 78%; }
+    .reveal-content{ padding: 5vh 6vw; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+  </div>
+
+  <main id="hero" class="scene hero-scene">
+    <p class="eyebrow">for ankita 💌</p>
+
+    <div class="cloud-stage">
+      <div class="cloud-wrap" id="cloudWrap">
+        <div class="cloud-float">
+          <div class="cloud-pulse" id="cloudPulseEl">
+            <svg class="cloud-svg" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A soft illustrated cloud">
+              <defs>
+                <linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#ffd9e3"/>
+                </linearGradient>
+                <filter id="cloudShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#c96b86" flood-opacity="0.28"/>
+                </filter>
+              </defs>
+              <g filter="url(#cloudShadow)" fill="url(#cloudGrad)">
+                <ellipse cx="320" cy="232" rx="258" ry="76"/>
+                <circle cx="150" cy="205" r="66"/>
+                <circle cx="185" cy="165" r="92"/>
+                <circle cx="278" cy="122" r="112"/>
+                <circle cx="392" cy="118" r="118"/>
+                <circle cx="486" cy="158" r="96"/>
+                <circle cx="522" cy="205" r="66"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="cloud-shadow" aria-hidden="true"></div>
+      </div>
+
+      <p class="cloud-question" id="cloudQuestion">Ankita, do you love me?</p>
+    </div>
+
+    <p class="lead-line">Ankita, this little sky is for you.</p>
+
+    <button type="button" class="yes-btn" id="yesBtn">Click if your answer is yes 💖</button>
+
+    <div class="progress" id="progressDots" aria-hidden="true">
+      <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
+      <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
+      <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
+      <span class="progress-dot"></span>
+    </div>
+
+    <p class="hint">(spoiler: there's only one right answer)</p>
+  </main>
+
+  <section id="reveal" class="scene reveal-scene" aria-hidden="true">
+    <div class="reveal-bg" aria-hidden="true"></div>
+    <div class="rings" aria-hidden="true">
+      <span class="ring r1"></span>
+      <span class="ring r2"></span>
+      <span class="ring r3"></span>
+    </div>
+    <div class="hearts-field" id="heartsField" aria-hidden="true"></div>
+    <div class="sparkles" id="sparklesField" aria-hidden="true"></div>
+
+    <div class="reveal-content">
+      <p class="reveal-eyebrow">a little late, but never less true</p>
+      <h1 class="reveal-headline">I Love You, <span class="name-highlight">Ankita</span></h1>
+      <p class="reveal-sub">I forgot to say it out loud on Girlfriend Day, Ankita — so I built you this whole sky to say it properly instead.</p>
+      <p class="reveal-sub-2">For every day I forget, this page will remember for me.</p>
+      <button type="button" class="replay-btn" id="replayBtn">Replay ↺</button>
+    </div>
+  </section>
+
+<script>
+(function(){
+  var cloudWrap = document.getElementById('cloudWrap');
+  var cloudPulseEl = document.getElementById('cloudPulseEl');
+  var questionEl = document.getElementById('cloudQuestion');
+  var yesBtn = document.getElementById('yesBtn');
+  var dots = document.querySelectorAll('.progress-dot');
+  var heroScene = document.getElementById('hero');
+  var revealScene = document.getElementById('reveal');
+  var replayBtn = document.getElementById('replayBtn');
+  var heartsField = document.getElementById('heartsField');
+  var sparklesField = document.getElementById('sparklesField');
+
+  var DEFAULT_QUESTION = 'Ankita, do you love me?';
+
+  var lines = [
+    'Really? 🥹',
+    'Pakka? 😳',
+    'Sach mein sach? 💗',
+    'Still yes? 🌷',
+    "You're sure sure? ✨",
+    'Not even a little maybe? 😌',
+    'Forever type yes? 💫',
+    'Cross your heart? 💕',
+    'Last chance to say no… 😏',
+    'Okay — one final yes? 🤍'
+  ];
+
+  var tilts   = [-7, 9, -12, 8, -14, 10, -16, 9, -13, 14];
+  var drifts  = [-12, 14, -16, 12, -18, 14, -20, 12, -16, 16];
+
+  var clicks = 0;
+  var animating = false;
+  var particlesBuilt = false;
+
+  function swapQuestion(text){
+    questionEl.classList.add('is-swapping');
+    window.setTimeout(function(){
+      questionEl.textContent = text;
+      questionEl.classList.remove('is-swapping');
+    }, 220);
+  }
+
+  function pulseCloud(){
+    cloudPulseEl.classList.remove('pulse');
+    void cloudPulseEl.offsetWidth;
+    cloudPulseEl.classList.add('pulse');
+  }
+
+  function bounceBtn(){
+    yesBtn.classList.remove('bounce');
+    void yesBtn.offsetWidth;
+    yesBtn.classList.add('bounce');
+  }
+
+  function updateDots(n){
+    dots.forEach(function(dot, i){
+      dot.classList.toggle('is-filled', i < n);
+    });
+  }
+
+  function randomBetween(min, max){
+    return min + Math.random() * (max - min);
+  }
+
+  function buildParticles(){
+    var heartSymbols = ['💖', '💕', '💗', '🩷', '🤍'];
+    var totalHearts = 22;
+    for (var i = 0; i < totalHearts; i++){
+      var h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = heartSymbols[i % heartSymbols.length];
+      h.style.left = randomBetween(2, 96) + '%';
+      h.style.fontSize = randomBetween(1, 2.4) + 'rem';
+      h.style.setProperty('--dur', randomBetween(5, 9) + 's');
+      h.style.setProperty('--delay', randomBetween(0, 2.6) + 's');
+      h.style.setProperty('--dx', randomBetween(-40, 40) + 'px');
+      heartsField.appendChild(h);
+    }
+    var totalSparkles = 16;
+    for (var j = 0; j < totalSparkles; j++){
+      var s = document.createElement('span');
+      s.className = 'sparkle';
+      s.textContent = '✨';
+      s.style.left = randomBetween(0, 100) + '%';
+      s.style.top = randomBetween(0, 100) + '%';
+      s.style.fontSize = randomBetween(0.7, 1.6) + 'rem';
+      s.style.setProperty('--dur', randomBetween(2, 4.5) + 's');
+      s.style.setProperty('--delay', randomBetween(0, 3) + 's');
+      sparklesField.appendChild(s);
+    }
+  }
+
+  function restartParticleAnimations(){
+    var els = document.querySelectorAll('.heart, .sparkle, .ring');
+    els.forEach(function(el){
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+  }
+
+  function triggerReveal(){
+    heroScene.classList.add('is-leaving');
+    window.setTimeout(function(){
+      heroScene.classList.add('is-hidden');
+      revealScene.classList.add('is-active');
+      revealScene.removeAttribute('aria-hidden');
+      if (!particlesBuilt){
+        buildParticles();
+        particlesBuilt = true;
+      } else {
+        restartParticleAnimations();
+      }
+    }, 650);
+  }
+
+  yesBtn.addEventListener('click', function(){
+    if (animating) return;
+    clicks += 1;
+
+    if (clicks <= 10){
+      var idx = clicks - 1;
+      cloudWrap.style.transform = 'rotate(' + tilts[idx] + 'deg) translateX(' + drifts[idx] + 'px)';
+      swapQuestion(lines[idx]);
+      pulseCloud();
+      bounceBtn();
+      updateDots(clicks);
+    } else {
+      animating = true;
+      updateDots(10);
+      triggerReveal();
+    }
+  });
+
+  replayBtn.addEventListener('click', function(){
+    clicks = 0;
+    animating = false;
+    updateDots(0);
+    cloudWrap.style.transform = '';
+    questionEl.textContent = DEFAULT_QUESTION;
+
+    revealScene.classList.remove('is-active');
+    revealScene.setAttribute('aria-hidden', 'true');
+
+    window.setTimeout(function(){
+      heroScene.classList.remove('is-hidden');
+      window.setTimeout(function(){
+        heroScene.classList.remove('is-leaving');
+      }, 30);
+    }, 400);
+  });
+})();
+</script>
+</body>
+</html>
